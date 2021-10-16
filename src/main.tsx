@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
+import React from 'react';
+import { StyleSheet, useWindowDimensions } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 
 import Display from './components/display';
@@ -9,7 +8,6 @@ import OperatorsAndNumbers from './components/operatorsAndNumbers';
 
 export default function main() {
   const { width, height } = useWindowDimensions();
-  const [numberTyped, setNumberTyped] = useState<number>(0);
 
   const styles = StyleSheet.create({
     container: {
@@ -44,7 +42,7 @@ export default function main() {
         // Button Linear Gradient
         colors={['#494D50', '#3C4043', '#1D2125']}
         style={styles.container}>
-            <Display number={numberTyped}/>
+            <Display/>
             <OperatorsAndNumbers/>
     </LinearGradient>
   );

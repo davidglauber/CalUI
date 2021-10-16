@@ -2,11 +2,7 @@ import React, { useContext } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { DigitContext } from '../providers/digit';
 
-interface TypeDisplay {
-    number: number
-}
-
-export default function Display({number}: TypeDisplay) {
+export default function Display() {
 const { height } = useWindowDimensions();
 const numberContext = useContext(DigitContext);
 

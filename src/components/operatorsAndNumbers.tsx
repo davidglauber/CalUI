@@ -14,11 +14,11 @@ export default function OperatorsAndNumbers() {
                 type: 'specialChar'
             },
             {
-                title: '( ',
+                title: ' ( ',
                 type: 'specialChar'
             },
             {
-                title: ') ',
+                title: ' ) ',
                 type: 'specialChar'
             },
             {
@@ -85,7 +85,7 @@ export default function OperatorsAndNumbers() {
 
             {
                 title: 'x',
-                type: 'operators'
+                type: 'operatorsX'
             },
             {
                 title: '÷',
@@ -101,7 +101,7 @@ export default function OperatorsAndNumbers() {
             },
             {
                 title: '=',
-                type: 'operators'
+                type: 'operatorsEQUAL'
             },
         ];
 
@@ -134,6 +134,15 @@ export default function OperatorsAndNumbers() {
         specialCharStyle: {
             color:'#A88546', 
             fontSize: 26
+        },
+        operationsChar: {
+            padding:30, 
+            maxWidth: width/5, 
+            maxHeight: height/9, 
+            marginTop:20, 
+            backgroundColor:'#48345D', 
+            borderRadius:40, 
+            elevation:10
         }
     })
 
@@ -179,24 +188,33 @@ export default function OperatorsAndNumbers() {
                     
                     </View>
                     )} />
-                    
-                    <View style={{flexDirection:'column'}}>
-                        <TouchableOpacity style={{padding:30, maxWidth: width/5, maxHeight: height/9, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
-                            <Text style={{color:'#BD87ED', fontSize: 26}}>x</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={{padding:30, maxWidth: width/5, maxHeight: height/9, marginTop:20, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
-                            <Text style={{color:'#BD87ED', fontSize: 26}}>÷</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={{padding:30, maxWidth: width/5, maxHeight: height/9, marginTop:20, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
-                            <Text style={{color:'#BD87ED', fontSize: 26}}>-</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={{padding:30, maxWidth: width/5, maxHeight: height/9, marginTop:20, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
-                            <Text style={{color:'#BD87ED', fontSize: 26}}>+</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={{padding:30, maxWidth: width/5, height: height/3.9, justifyContent:"center", marginTop:20, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
-                            <Text style={{color:'#BD87ED', fontSize: 26}}>=</Text>
-                        </TouchableOpacity>
+
+            <FlatList
+                data={digitsArray}
+                keyExtractor={item => makeid(10)}
+                renderItem={({item}) => (
+                    <View>
+                        {/* {item.type == "operatorsX" &&
+                            <TouchableOpacity style={{padding:30, maxWidth: width/5, maxHeight: height/9, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
+                                <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
+                            </TouchableOpacity>
+                        } */}
+
+                        {item.type == "operators" &&
+                            <TouchableOpacity style={styles.operationsChar}>
+                                <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
+                            </TouchableOpacity>
+                        }
+
+                        {/* {item.type == "operatorsEQUAL" &&
+                            <TouchableOpacity style={{padding:30, maxWidth: width/5, height: height/3.9, justifyContent:"center", marginTop:20, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
+                                <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
+                            </TouchableOpacity>
+                        } */}
+
                     </View>
+                    )} />
+                    
                     <StatusBar style="auto" />
         </View>
     );
