@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { DigitContext } from '../providers/digit';
 
 interface TypeDisplay {
     number: number
@@ -7,6 +8,7 @@ interface TypeDisplay {
 
 export default function Display({number}: TypeDisplay) {
 const { height } = useWindowDimensions();
+const numberContext = useContext(DigitContext);
 
 const styles = StyleSheet.create({
     container: {
@@ -34,7 +36,7 @@ const styles = StyleSheet.create({
     return(
         <View style={styles.container}>
             <View style={styles.subcontainer}>
-                <Text style={styles.displayText}>{number}</Text>
+                <Text style={styles.displayText}>{numberContext.initialValue}</Text>
             </View>
         </View>
     );

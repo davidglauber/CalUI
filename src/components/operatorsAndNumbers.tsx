@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions } from 'react-native';
-
+import { DigitContext } from '../providers/digit';
 
 
 export default function OperatorsAndNumbers() {
     const { width, height } = useWindowDimensions();
+    const { initialValue, setInitialValue } = React.useContext(DigitContext);
+
     const styles = StyleSheet.create({
         numbersStyle: {
             padding:30, 
@@ -42,7 +44,7 @@ export default function OperatorsAndNumbers() {
     return(
         <View style={{flexDirection: 'row'}}> 
                 <View style={styles.numsAndSymbolsView}> 
-                    <TouchableOpacity onPress={() => alert('oi')} style={styles.operators}>
+                    <TouchableOpacity onPress={() => setInitialValue('C')} style={styles.operators}>
                         <Text style={styles.specialCharStyle}>C</Text>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.operators}>
