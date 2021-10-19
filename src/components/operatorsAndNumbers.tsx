@@ -196,26 +196,27 @@ export default function OperatorsAndNumbers() {
                 renderItem={({item}) => (
                     <View>
                         {item.type == "operatorsX" &&
-                            <TouchableOpacity style={{padding:30, maxWidth: width/5, maxHeight: height/9, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
+                            <TouchableOpacity onPress={() => setInitialValue(item.title)} style={{padding:30, maxWidth: width/5, maxHeight: height/9, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
                                 <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
                             </TouchableOpacity>
                         }
 
                         {item.type == "operators" &&
-                            <TouchableOpacity style={styles.operationsChar}>
+                            <TouchableOpacity onPress={() => setInitialValue(item.title)} style={styles.operationsChar}>
                                 <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
                             </TouchableOpacity>
                         }
 
                         {item.type == "operatorsEQUAL" &&
-                            <TouchableOpacity style={{padding:30, maxWidth: width/5, height: height/3.9, justifyContent:"center", marginTop:20, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
+                            <TouchableOpacity onPress={() => setInitialValue(item.title)} style={{padding:30, maxWidth: width/5, height: height/3.9, justifyContent:"center", marginTop:20, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
                                 <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
                             </TouchableOpacity>
                         }
 
                     </View>
+
+                    /*GIT FLOW*/
                     )} />
-                    
                     <StatusBar style="auto" />
         </View>
     );
