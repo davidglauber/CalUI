@@ -215,7 +215,7 @@ export default function OperatorsAndNumbers() {
 
                     </View>
 
-                    /*GIT FLOW*/
+                    /*GIT FLOW TESTING*/
                     )} />
                     <StatusBar style="auto" />
         </View>
