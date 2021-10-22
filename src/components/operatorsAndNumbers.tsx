@@ -2,79 +2,63 @@ import React from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions, FlatList } from 'react-native';
 import { DigitContext } from '../providers/digit';
-
+import { Sum } from '../operators/index';
 
 export default function OperatorsAndNumbers() {
     const { width, height } = useWindowDimensions();
     const { initialValue, setInitialValue } = React.useContext(DigitContext); //this method calls the data of context and retrieve in this page
+    const [ countPressButton, setCountPressButton ] = React.useState(0);
+
 
     const digitsArray = [
             {
-                title: 'C',
-                type: 'specialChar'
-            },
-            {
-                title: ' ( ',
-                type: 'specialChar'
-            },
-            {
-                title: ' ) ',
-                type: 'specialChar'
-            },
-            {
-                title: '√',
-                type: 'specialChar'
-            },
-            {
-                title: '%',
-                type: 'specialChar'
-            },
-            {
-                title: '±',
-                type: 'specialChar'
-            },
-
-
-
-
-            {
-                title: '1',
+                id: 1,
+                titleNumber: 1,
                 type: 'normalChar'
             },
             {
-                title: '2',
+                id: 2,
+                titleNumber: 2,
                 type: 'normalChar'
             },
             {
-                title: '3',
+                id: 3,
+                titleNumber: 3,
                 type: 'normalChar'
             },
             {
-                title: '4',
+                id: 4,
+                titleNumber: 4,
                 type: 'normalChar'
             },
             {
-                title: '5',
+                id: 5,
+                titleNumber: 5,
                 type: 'normalChar'
             },
             {
-                title: '6',
+                id: 6,
+                titleNumber: 6,
                 type: 'normalChar'
             },
             {
-                title: '7',
+                id: 7,
+                titleNumber: 7,
                 type: 'normalChar'
             },
             {
-                title: '8',
+                id: 8,
+                titleNumber: 8,
                 type: 'normalChar'
             },
             {
-                title: '9',
+                id: 9,
+                titleNumber: 9,
                 type: 'normalChar'
             },
             {
-                title: '0',
+                id: 0,
+                titleNumber: 0,
                 type: 'normalChar'
             },
             {
@@ -105,9 +89,10 @@ export default function OperatorsAndNumbers() {
             },
         ];
 
-    const styles = StyleSheet.create({
-        numbersStyle: {
-            padding:30, 
+
+        const styles = StyleSheet.create({
+            numbersStyle: {
+                padding:30, 
             maxWidth: width/5, 
             maxHeight: height/9,
             marginLeft: 20, 
@@ -145,21 +130,29 @@ export default function OperatorsAndNumbers() {
             elevation:10
         }
     })
-
-
+    
+    
     function makeid(length: number) {
         var result           = '';
         var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         var charactersLength = characters.length;
         for ( var i = 0; i < length; i++ ) {
-          result += characters.charAt(Math.floor(Math.random() * 
-     charactersLength));
+            result += characters.charAt(Math.floor(Math.random() * 
+            charactersLength));
        }
        return result;
     }
     
+    
+    function handleEquation(number: number | undefined, counter?: number, id?: number) {
+        if(counter !== undefined && id !== undefined) {
+            setCountPressButton(counter + 1)
+            alert(id + '  ' + counter)
+        }
 
-
+        setInitialValue(number)
+    }
+    
     return(
         <View style={{flexDirection: 'row'}}> 
             <FlatList
@@ -168,15 +161,10 @@ export default function OperatorsAndNumbers() {
                 keyExtractor={item => makeid(10)}
                 renderItem={({item}) => (
                     <View style={styles.numsAndSymbolsView}>
-                        {item.type == "specialChar" &&
-                            <TouchableOpacity onPress={() => setInitialValue(item.title)} style={styles.operators}>
-                                <Text style={styles.specialCharStyle}>{item.title}</Text>
-                            </TouchableOpacity>
-                        }
-
+                        {/*Aqui são os números de 0 a 9*/}
                         {item.type == "normalChar" &&
-                            <TouchableOpacity onPress={() => setInitialValue(item.title)} style={styles.numbersStyle}>
-                                <Text style={styles.specialCharStyle}>{item.title}</Text>
+                            <TouchableOpacity onPress={() => handleEquation(item.titleNumber, countPressButton, item.id)} style={styles.numbersStyle}>
+                                <Text style={styles.specialCharStyle}>{item.titleNumber}</Text>
                             </TouchableOpacity>
                         }
 

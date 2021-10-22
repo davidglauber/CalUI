@@ -22,9 +22,9 @@ const styles = StyleSheet.create({
     },
     displayText: {
         fontWeight:'bold', 
-        fontSize:30, 
+        fontSize:50, 
         color:"white",
-        marginBottom: height/17
+        marginTop: height/20
     }
 })
 
