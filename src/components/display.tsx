@@ -6,6 +6,14 @@ export default function Display() {
 const { width, height } = useWindowDimensions();
 const { initialValue, secondValue, result, setResult, operatorContext } = useContext(DigitContext);
 
+var length = 12;
+var trimmedString = initialValue.length > length ? 
+                    initialValue.substring(0, length - 3) + "..." : 
+                    initialValue;
+
+var secondTrimmedString = secondValue.length > length ? 
+                    secondValue.substring(0, length - 3) + "..." : 
+                    secondValue;
 
 const styles = StyleSheet.create({
     container: {
@@ -19,7 +27,8 @@ const styles = StyleSheet.create({
     },
     subcontainer: {
         justifyContent:'flex-end', 
-        alignItems:'center'
+        alignItems:'center',
+        padding:15
     },
     displayText: {
         fontWeight:'bold', 
@@ -35,8 +44,18 @@ function equalFunction() {
 
     if(operatorContext == "x") {
         setResult(convert1Value * convert2Value);
+    }
 
-        console.log('resultado: ' + result);
+    if(operatorContext == "÷") {
+        setResult(convert1Value / convert2Value);
+    }
+
+    if(operatorContext == "+") {
+        setResult(convert1Value + convert2Value);
+    }
+
+    if(operatorContext == "-") {
+        setResult(convert1Value - convert2Value);
     }
 }
 
@@ -48,18 +67,17 @@ function equalFunction() {
         console.log('ARRAY SECOND NUMBER: ' + secondValue)
     }, [secondValue])
 
-    console.log('OPERATOR:' + operatorContext)
     
     return(
         <View style={styles.container}>
             <View style={styles.subcontainer}>
                 {result == undefined ?
-                    <Text style={styles.displayText}>{secondValue.length == 0 ? initialValue : secondValue}</Text>
+                    <Text style={styles.displayText}>{secondValue.length == 0 ? trimmedString : secondTrimmedString}</Text>
                 :
                     <Text style={styles.displayText}>{result}</Text>
                 }
 
-                <TouchableOpacity onPress={() => equalFunction()} style={{marginTop: height/12, width: 100, height:50, backgroundColor:'#fff', borderRadius: 30}}
+                <TouchableOpacity onPress={() => equalFunction()} style={{marginTop: height/10, width: 100, height:50, backgroundColor:'#fff', borderRadius: 30}}
                 >
                     <Text style={{alignSelf:'center', marginTop:2, fontWeight:'bold', fontSize:35}}>=</Text>
                 </TouchableOpacity>
