@@ -4,7 +4,7 @@ export const DigitContext = React.createContext({});
 
 
 export const DigitProvider = (props: any) => {
-    const [ initialValue, setInitialValue ] = useState<Array<number | string>>([0]);
+    const [ initialValue, setInitialValue ] = useState<string>('Type here...');
     const [ operatorContext, setOperatorContext ] = useState<string>('');
 
     return(

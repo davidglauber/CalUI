@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions, FlatList } from 'react-native';
 import { DigitContext } from '../providers/digit';
@@ -7,6 +7,10 @@ export default function OperatorsAndNumbers() {
     const { width, height } = useWindowDimensions();
     const { initialValue, setInitialValue, operatorContext, setOperatorContext } = React.useContext(DigitContext); //this method calls the data of context and retrieve in this page
     const [ arrayNumbers, setArrayNumbers ] = useState<Array<number>>([]);
+    const [ steps, setSteps ] = useState(0);
+
+    //step 0: colocar o primeiro numero nao importa o tamanho
+    //step 1: operador, ao ser clicado, passar o valor dos numeros para outra variavel
 
     const digitsArray = [
             {
@@ -114,6 +118,15 @@ export default function OperatorsAndNumbers() {
             elevation:10
         }
     })
+
+
+    useEffect(() => {
+        function SetStep() {
+            setSteps(1)
+        }
+
+        SetStep()
+    }, [operatorContext])
     
     
     function makeid(length: number) {
@@ -129,12 +142,51 @@ export default function OperatorsAndNumbers() {
     
     
     function handleEquation(number: string) {
-        let parseNumber = parseInt(number);
-        arrayNumbers.push(parseNumber);
+        if(initialValue.includes('Type here...')) {
+            setInitialValue(number)
+        }
         
-        setInitialValue(arrayNumbers);
+        if(initialValue.includes('0')) {
+            setInitialValue(initialValue + number);
+        }
 
-        console.log('VALORES: ' + arrayNumbers)
+        if(initialValue.includes('1')) {
+            setInitialValue(initialValue + number);
+        }
+
+        if(initialValue.includes('2')) {
+            setInitialValue(initialValue + number);
+        }
+
+        if(initialValue.includes('3')) {
+            setInitialValue(initialValue + number);
+        }
+
+        if(initialValue.includes('4')) {
+            setInitialValue(initialValue + number);
+        }
+
+        if(initialValue.includes('5')) {
+            setInitialValue(initialValue + number);
+        }
+
+        if(initialValue.includes('6')) {
+            setInitialValue(initialValue + number);
+        }
+
+        if(initialValue.includes('7')) {
+            setInitialValue(initialValue + number);
+        }
+
+        if(initialValue.includes('8')) {
+            setInitialValue(initialValue + number);
+        }
+
+        if(initialValue.includes('9')) {
+            setInitialValue(initialValue + number);
+        }
+
+        console.log('VALORES: ' + initialValue)
     }
 
 
@@ -154,7 +206,7 @@ export default function OperatorsAndNumbers() {
                         }
 
                         {item.type == "erase" &&
-                            <TouchableOpacity onPress={() => setInitialValue(initialValue.length = 0)} style={{width: 155, padding:30, 
+                            <TouchableOpacity onPress={() => setInitialValue('Type here...')} style={{width: 155, padding:30, 
                                 maxWidth: width/1.5, 
                                 maxHeight: height/9,
                                 marginLeft: 20, 

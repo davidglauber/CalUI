@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { StyleSheet, Text, View, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { DigitContext } from '../providers/digit';
 
@@ -32,11 +32,18 @@ const styles = StyleSheet.create({
 function equalFunction() {
     let sum = 5 + 15
     setInitialValue(sum)
+
+    if(operatorContext == "x") {
+        let multiple = 0
+    }
 }
 
 
+    useEffect(() => {
+        console.log('ARRAY: ' + initialValue)
+    }, [initialValue])
 
-    console.log('ARRAY: ' + JSON.stringify(initialValue))
+    console.log('OPERATOR:' + operatorContext)
     
     return(
         <View style={styles.container}>
