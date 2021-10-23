@@ -42,12 +42,16 @@ function equalFunction() {
         console.log('ARRAY: ' + initialValue)
     }, [initialValue])
 
+    useEffect(() => {
+        console.log('ARRAY SECOND NUMBER: ' + secondValue)
+    }, [secondValue])
+
     console.log('OPERATOR:' + operatorContext)
     
     return(
         <View style={styles.container}>
             <View style={styles.subcontainer}>
-                <Text style={styles.displayText}>{initialValue}</Text>
+                <Text style={styles.displayText}>{secondValue.length == 0 ? initialValue : secondValue}</Text>
                 <TouchableOpacity onPress={() => equalFunction()} style={{marginTop: height/12, width: 100, height:50, backgroundColor:'#fff', borderRadius: 30}}
                 >
                     <Text style={{alignSelf:'center', marginTop:2, fontWeight:'bold', fontSize:35}}>=</Text>

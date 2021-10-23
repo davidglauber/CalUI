@@ -189,9 +189,15 @@ export default function OperatorsAndNumbers() {
         
         if(steps == 1) {
             alert('IF STEP 1')
+
+            if(secondValue == '') {
+                setSecondValue(number)
+                console.log('SECOND VALUE: ' + secondValue)
+            }
+
             if(secondValue.includes('0')) {
                 setSecondValue(secondValue + number);
-                console.log('SECOND VALUE: ' + secondValue)
+                console.log('SECOND VALUE 0: ' + secondValue)
             }
 
             if(secondValue.includes('1')) {
@@ -234,6 +240,7 @@ export default function OperatorsAndNumbers() {
         
     function handleClean() {
         setInitialValue('Type here...')
+        setSecondValue('')
         setOperatorContext('')
         setSteps(0);
     }
