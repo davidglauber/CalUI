@@ -5,8 +5,7 @@ import { DigitContext } from '../providers/digit';
 
 export default function OperatorsAndNumbers() {
     const { width, height } = useWindowDimensions();
-    const { initialValue, setInitialValue, operatorContext, setOperatorContext } = React.useContext(DigitContext); //this method calls the data of context and retrieve in this page
-    const [ arrayNumbers, setArrayNumbers ] = useState<Array<number>>([]);
+    const { initialValue, setInitialValue, secondValue, setSecondValue, operatorContext, setOperatorContext } = React.useContext(DigitContext); //this method calls the data of context and retrieve in this page
     const [ steps, setSteps ] = useState(0);
 
     //step 0: colocar o primeiro numero nao importa o tamanho
@@ -120,14 +119,11 @@ export default function OperatorsAndNumbers() {
     })
 
 
-    useEffect(() => {
-        function SetStep() {
-            setSteps(1)
-        }
-
-        SetStep()
-    }, [operatorContext])
     
+    function handleOperators(item:string) {
+        setSteps(1);
+        setOperatorContext(item)
+    }
     
     function makeid(length: number) {
         var result           = '';
@@ -142,53 +138,105 @@ export default function OperatorsAndNumbers() {
     
     
     function handleEquation(number: string) {
-        if(initialValue.includes('Type here...')) {
-            setInitialValue(number)
-        }
+        if(steps == 0) {
+            alert('IF STEP 0')
+            if(initialValue.includes('Type here...')) {
+                setInitialValue(number)
+            }
+            
+            if(initialValue.includes('0')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            if(initialValue.includes('1')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            if(initialValue.includes('2')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            if(initialValue.includes('3')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            if(initialValue.includes('4')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            if(initialValue.includes('5')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            if(initialValue.includes('6')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            if(initialValue.includes('7')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            if(initialValue.includes('8')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            if(initialValue.includes('9')) {
+                setInitialValue(initialValue + number);
+            }
+            
+            console.log('VALORES: ' + initialValue)
+        } 
         
-        if(initialValue.includes('0')) {
-            setInitialValue(initialValue + number);
-        }
+        if(steps == 1) {
+            alert('IF STEP 1')
+            if(secondValue.includes('0')) {
+                setSecondValue(secondValue + number);
+                console.log('SECOND VALUE: ' + secondValue)
+            }
 
-        if(initialValue.includes('1')) {
-            setInitialValue(initialValue + number);
+            if(secondValue.includes('1')) {
+                setSecondValue(secondValue + number);
+            }
+            
+            if(secondValue.includes('2')) {
+                setSecondValue(secondValue + number);
+            }
+            
+            if(secondValue.includes('3')) {
+                setSecondValue(secondValue + number);
+            }
+            
+            if(secondValue.includes('4')) {
+                setSecondValue(secondValue + number);
+            }
+            
+            if(secondValue.includes('5')) {
+                setSecondValue(secondValue + number);
+            }
+            
+            if(secondValue.includes('6')) {
+                setSecondValue(secondValue + number);
+            }
+            
+            if(secondValue.includes('7')) {
+                setSecondValue(secondValue + number);
+            }
+            
+            if(secondValue.includes('8')) {
+                setSecondValue(secondValue + number);
+            }
+            
+            if(secondValue.includes('9')) {
+                setSecondValue(secondValue + number);
+            }
         }
-
-        if(initialValue.includes('2')) {
-            setInitialValue(initialValue + number);
-        }
-
-        if(initialValue.includes('3')) {
-            setInitialValue(initialValue + number);
-        }
-
-        if(initialValue.includes('4')) {
-            setInitialValue(initialValue + number);
-        }
-
-        if(initialValue.includes('5')) {
-            setInitialValue(initialValue + number);
-        }
-
-        if(initialValue.includes('6')) {
-            setInitialValue(initialValue + number);
-        }
-
-        if(initialValue.includes('7')) {
-            setInitialValue(initialValue + number);
-        }
-
-        if(initialValue.includes('8')) {
-            setInitialValue(initialValue + number);
-        }
-
-        if(initialValue.includes('9')) {
-            setInitialValue(initialValue + number);
-        }
-
-        console.log('VALORES: ' + initialValue)
     }
-
+        
+    function handleClean() {
+        setInitialValue('Type here...')
+        setOperatorContext('')
+        setSteps(0);
+    }
 
     return(
         <View style={{flexDirection: 'row'}}> 
@@ -199,14 +247,14 @@ export default function OperatorsAndNumbers() {
                 renderItem={({item}) => (
                     <View style={styles.numsAndSymbolsView}>
                         {/*Aqui são os números de 0 a 9*/}
-                        {item.type == "normalChar" && 
+                        {item.type == "normalChar" &&
                             <TouchableOpacity onPress={() => handleEquation(item.title)} style={styles.numbersStyle}>
                                 <Text style={styles.specialCharStyle}>{item.title}</Text>
                             </TouchableOpacity>
                         }
 
                         {item.type == "erase" &&
-                            <TouchableOpacity onPress={() => setInitialValue('Type here...')} style={{width: 155, padding:30, 
+                            <TouchableOpacity onPress={() => handleClean()} style={{width: 155, padding:30, 
                                 maxWidth: width/1.5, 
                                 maxHeight: height/9,
                                 marginLeft: 20, 
@@ -235,7 +283,7 @@ export default function OperatorsAndNumbers() {
                         }
 
                         {item.type == "operators" &&
-                            <TouchableOpacity onPress={() => setOperatorContext(item.title)} style={styles.operationsChar}>
+                            <TouchableOpacity onPress={() => handleOperators(item.title)} style={styles.operationsChar}>
                                 <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
                             </TouchableOpacity>
                         }

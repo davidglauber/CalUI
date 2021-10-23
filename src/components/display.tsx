@@ -5,7 +5,7 @@ import { DigitContext } from '../providers/digit';
 export default function Display() {
 const { width, height } = useWindowDimensions();
 
-const { initialValue, setInitialValue, operatorContext, setOperatorContext } = useContext(DigitContext);
+const { initialValue, setInitialValue, secondValue, setSecondValue, operatorContext, setOperatorContext } = useContext(DigitContext);
 
 const styles = StyleSheet.create({
     container: {
@@ -37,7 +37,6 @@ function equalFunction() {
         let multiple = 0
     }
 }
-
 
     useEffect(() => {
         console.log('ARRAY: ' + initialValue)
