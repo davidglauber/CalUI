@@ -4,8 +4,8 @@ import { DigitContext } from '../providers/digit';
 
 export default function Display() {
 const { width, height } = useWindowDimensions();
+const { initialValue, secondValue, result, setResult, operatorContext } = useContext(DigitContext);
 
-const { initialValue, setInitialValue, secondValue, setSecondValue, operatorContext, setOperatorContext } = useContext(DigitContext);
 
 const styles = StyleSheet.create({
     container: {
@@ -30,11 +30,13 @@ const styles = StyleSheet.create({
 })
 
 function equalFunction() {
-    let sum = 5 + 15
-    setInitialValue(sum)
+    var convert1Value = parseInt(initialValue);
+    var convert2Value = parseInt(secondValue);
 
     if(operatorContext == "x") {
-        let multiple = 0
+        setResult(convert1Value * convert2Value);
+
+        console.log('resultado: ' + result);
     }
 }
 
@@ -51,7 +53,12 @@ function equalFunction() {
     return(
         <View style={styles.container}>
             <View style={styles.subcontainer}>
-                <Text style={styles.displayText}>{secondValue.length == 0 ? initialValue : secondValue}</Text>
+                {result == undefined ?
+                    <Text style={styles.displayText}>{secondValue.length == 0 ? initialValue : secondValue}</Text>
+                :
+                    <Text style={styles.displayText}>{result}</Text>
+                }
+
                 <TouchableOpacity onPress={() => equalFunction()} style={{marginTop: height/12, width: 100, height:50, backgroundColor:'#fff', borderRadius: 30}}
                 >
                     <Text style={{alignSelf:'center', marginTop:2, fontWeight:'bold', fontSize:35}}>=</Text>

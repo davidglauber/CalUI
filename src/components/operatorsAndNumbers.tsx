@@ -5,7 +5,7 @@ import { DigitContext } from '../providers/digit';
 
 export default function OperatorsAndNumbers() {
     const { width, height } = useWindowDimensions();
-    const { initialValue, setInitialValue, secondValue, setSecondValue, operatorContext, setOperatorContext } = React.useContext(DigitContext); //this method calls the data of context and retrieve in this page
+    const { initialValue, setInitialValue, secondValue, setSecondValue, setResult, setOperatorContext } = React.useContext(DigitContext); //this method calls the data of context and retrieve in this page
     const [ steps, setSteps ] = useState(0);
 
     //step 0: colocar o primeiro numero nao importa o tamanho
@@ -139,7 +139,6 @@ export default function OperatorsAndNumbers() {
     
     function handleEquation(number: string) {
         if(steps == 0) {
-            alert('IF STEP 0')
             if(initialValue.includes('Type here...')) {
                 setInitialValue(number)
             }
@@ -188,16 +187,12 @@ export default function OperatorsAndNumbers() {
         } 
         
         if(steps == 1) {
-            alert('IF STEP 1')
-
             if(secondValue == '') {
                 setSecondValue(number)
-                console.log('SECOND VALUE: ' + secondValue)
             }
 
             if(secondValue.includes('0')) {
                 setSecondValue(secondValue + number);
-                console.log('SECOND VALUE 0: ' + secondValue)
             }
 
             if(secondValue.includes('1')) {
@@ -241,6 +236,7 @@ export default function OperatorsAndNumbers() {
     function handleClean() {
         setInitialValue('Type here...')
         setSecondValue('')
+        setResult(undefined)
         setOperatorContext('')
         setSteps(0);
     }
@@ -284,7 +280,7 @@ export default function OperatorsAndNumbers() {
                 renderItem={({item}) => (
                     <View>
                         {item.type == "operatorsX" &&
-                            <TouchableOpacity onPress={() => setOperatorContext(item.title)} style={{padding:30, maxWidth: width/5, maxHeight: height/9, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
+                            <TouchableOpacity onPress={() => handleOperators(item.title)} style={{padding:30, maxWidth: width/5, maxHeight: height/9, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
                                 <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
                             </TouchableOpacity>
                         }
