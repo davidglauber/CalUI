@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import React, { useContext, useEffect } from "react";
+import { StyleSheet, Text, View, useWindowDimensions, TouchableOpacity } from 'react-native';
 import { DigitContext } from '../providers/digit';
 
 export default function Display() {
-const { height } = useWindowDimensions();
-const numberContext = useContext(DigitContext);
+const { width, height } = useWindowDimensions();
+
+const { initialValue, setInitialValue, operatorContext, setOperatorContext } = useContext(DigitContext);
 
 const styles = StyleSheet.create({
     container: {
@@ -28,11 +29,23 @@ const styles = StyleSheet.create({
     }
 })
 
+function equalFunction() {
+    let sum = 5 + 15
+    setInitialValue(sum)
+}
 
+
+
+    console.log('ARRAY: ' + JSON.stringify(initialValue))
+    
     return(
         <View style={styles.container}>
             <View style={styles.subcontainer}>
-                <Text style={styles.displayText}>{numberContext.initialValue}</Text>
+                <Text style={styles.displayText}>{initialValue}</Text>
+                <TouchableOpacity onPress={() => equalFunction()} style={{marginTop: height/12, width: 100, height:50, backgroundColor:'#fff', borderRadius: 30}}
+                >
+                    <Text style={{alignSelf:'center', marginTop:2, fontWeight:'bold', fontSize:35}}>=</Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

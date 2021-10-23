@@ -1,64 +1,52 @@
-import React from "react";
+import React, { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TouchableOpacity, View, useWindowDimensions, FlatList } from 'react-native';
 import { DigitContext } from '../providers/digit';
-import { Sum } from '../operators/index';
 
 export default function OperatorsAndNumbers() {
     const { width, height } = useWindowDimensions();
-    const { initialValue, setInitialValue } = React.useContext(DigitContext); //this method calls the data of context and retrieve in this page
-    const [ countPressButton, setCountPressButton ] = React.useState(0);
-
+    const { initialValue, setInitialValue, operatorContext, setOperatorContext } = React.useContext(DigitContext); //this method calls the data of context and retrieve in this page
+    const [ arrayNumbers, setArrayNumbers ] = useState<Array<number>>([]);
 
     const digitsArray = [
             {
-                id: 1,
-                titleNumber: 1,
+                title: '1',
                 type: 'normalChar'
             },
             {
-                id: 2,
-                titleNumber: 2,
+                title: '2',
                 type: 'normalChar'
             },
             {
-                id: 3,
-                titleNumber: 3,
+                title: '3',
                 type: 'normalChar'
             },
             {
-                id: 4,
-                titleNumber: 4,
+                title: '4',
                 type: 'normalChar'
             },
             {
-                id: 5,
-                titleNumber: 5,
+                title: '5',
                 type: 'normalChar'
             },
             {
-                id: 6,
-                titleNumber: 6,
+                title: '6',
                 type: 'normalChar'
             },
             {
-                id: 7,
-                titleNumber: 7,
+                title: '7',
                 type: 'normalChar'
             },
             {
-                id: 8,
-                titleNumber: 8,
+                title: '8',
                 type: 'normalChar'
             },
             {
-                id: 9,
-                titleNumber: 9,
+                title: '9',
                 type: 'normalChar'
             },
             {
-                id: 0,
-                titleNumber: 0,
+                title: '0',
                 type: 'normalChar'
             },
             {
@@ -82,17 +70,13 @@ export default function OperatorsAndNumbers() {
             {
                 title: '+',
                 type: 'operators'
-            },
-            {
-                title: '=',
-                type: 'operatorsEQUAL'
-            },
+            }
         ];
 
 
         const styles = StyleSheet.create({
             numbersStyle: {
-                padding:30, 
+            padding:30, 
             maxWidth: width/5, 
             maxHeight: height/9,
             marginLeft: 20, 
@@ -144,15 +128,16 @@ export default function OperatorsAndNumbers() {
     }
     
     
-    function handleEquation(number: number | undefined, counter?: number, id?: number) {
-        if(counter !== undefined && id !== undefined) {
-            setCountPressButton(counter + 1)
-            alert(id + '  ' + counter)
-        }
+    function handleEquation(number: string) {
+        let parseNumber = parseInt(number);
+        arrayNumbers.push(parseNumber);
+        
+        setInitialValue(arrayNumbers);
 
-        setInitialValue(number)
+        console.log('VALORES: ' + arrayNumbers)
     }
-    
+
+
     return(
         <View style={{flexDirection: 'row'}}> 
             <FlatList
@@ -162,15 +147,23 @@ export default function OperatorsAndNumbers() {
                 renderItem={({item}) => (
                     <View style={styles.numsAndSymbolsView}>
                         {/*Aqui são os números de 0 a 9*/}
-                        {item.type == "normalChar" &&
-                            <TouchableOpacity onPress={() => handleEquation(item.titleNumber, countPressButton, item.id)} style={styles.numbersStyle}>
-                                <Text style={styles.specialCharStyle}>{item.titleNumber}</Text>
+                        {item.type == "normalChar" && 
+                            <TouchableOpacity onPress={() => handleEquation(item.title)} style={styles.numbersStyle}>
+                                <Text style={styles.specialCharStyle}>{item.title}</Text>
                             </TouchableOpacity>
                         }
 
                         {item.type == "erase" &&
-                            <TouchableOpacity onPress={() => setInitialValue('Type here...')} style={styles.numbersStyle}>
-                                <Text style={styles.specialCharStyle}>X</Text>
+                            <TouchableOpacity onPress={() => setInitialValue(initialValue.length = 0)} style={{width: 155, padding:30, 
+                                maxWidth: width/1.5, 
+                                maxHeight: height/9,
+                                marginLeft: 20, 
+                                backgroundColor:'#4D463D',
+                                borderRadius:40, 
+                                marginVertical:10,
+                                elevation:20}}
+                            >
+                                <Text style={styles.specialCharStyle}>  Clean</Text>
                             </TouchableOpacity>
                         }
                     
@@ -184,19 +177,13 @@ export default function OperatorsAndNumbers() {
                 renderItem={({item}) => (
                     <View>
                         {item.type == "operatorsX" &&
-                            <TouchableOpacity onPress={() => setInitialValue(item.title)} style={{padding:30, maxWidth: width/5, maxHeight: height/9, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
+                            <TouchableOpacity onPress={() => setOperatorContext(item.title)} style={{padding:30, maxWidth: width/5, maxHeight: height/9, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
                                 <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
                             </TouchableOpacity>
                         }
 
                         {item.type == "operators" &&
-                            <TouchableOpacity onPress={() => setInitialValue(item.title)} style={styles.operationsChar}>
-                                <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
-                            </TouchableOpacity>
-                        }
-
-                        {item.type == "operatorsEQUAL" &&
-                            <TouchableOpacity onPress={() => setInitialValue(item.title)} style={{padding:30, maxWidth: width/5, height: height/3.9, justifyContent:"center", marginTop:20, backgroundColor:'#48345D', borderRadius:40, elevation:10}}>
+                            <TouchableOpacity onPress={() => setOperatorContext(item.title)} style={styles.operationsChar}>
                                 <Text style={{color:'#BD87ED', fontSize: 26}}>{item.title}</Text>
                             </TouchableOpacity>
                         }
