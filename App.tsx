@@ -9,3 +9,5 @@ export default function App() {
     </DigitProvider>
   );
 }
+
+//testing pull request (PR) with merge
